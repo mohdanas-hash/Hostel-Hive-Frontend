@@ -1,0 +1,77 @@
+import Link from 'next/link'
+
+const columns = [
+  {
+    title: 'Discover',
+    links: ['Hostels', 'Messes', 'Cafeterias', 'Colleges'],
+  },
+  {
+    title: 'Students',
+    links: ['Reviews', 'Community', 'Compare', 'Help Center'],
+  },
+  {
+    title: 'Company',
+    links: ['About Us', 'Careers', 'Contact', 'Partner with us'],
+  },
+]
+
+const currentYear = new Date().getFullYear()
+
+export default function Footer() {
+  return (
+    <footer className="border-t border-ink-100 bg-white">
+      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+        <div className="grid gap-10 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
+          <div>
+            <Link href="/" className="flex items-center gap-2">
+              <span className="grid h-9 w-9 place-items-center rounded-xl bg-brand-600 text-white">
+                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor">
+                  <path d="M6 20V11l6-4 6 4v9h-4v-6H10v6z" />
+                </svg>
+              </span>
+              <span className="text-lg font-extrabold tracking-tight text-ink-950">
+                Hostel Hive
+              </span>
+            </Link>
+            <p className="mt-4 max-w-sm text-sm leading-relaxed text-ink-500">
+              The student marketplace for finding trusted hostels, messes,
+              cafeterias and colleges — with real reviews from real students.
+            </p>
+          </div>
+
+          {columns.map((col) => (
+            <div key={col.title}>
+              <h3 className="text-sm font-semibold text-ink-950">{col.title}</h3>
+              <ul className="mt-4 space-y-3">
+                {col.links.map((link) => (
+                  <li key={link}>
+                    <a
+                      href="#"
+                      className="text-sm text-ink-500 transition-colors hover:text-brand-600"
+                    >
+                      {link}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-ink-100 pt-6 sm:flex-row">
+          <p className="text-xs text-ink-500">
+            © {currentYear} Hostel Hive. All rights reserved.
+          </p>
+          <div className="flex gap-6 text-xs text-ink-500">
+            <a href="#" className="hover:text-brand-600">
+              Privacy
+            </a>
+            <a href="#" className="hover:text-brand-600">
+              Terms
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  )
+}

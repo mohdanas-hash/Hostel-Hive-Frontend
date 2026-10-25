@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-plus-jakarta-sans), system-ui, "Segoe UI", sans-serif;
+
+  --color-ink-950: #140f1f;
+  --color-ink-900: #1c1530;
+  --color-ink-700: #463a63;
+  --color-ink-500: #756a8f;
+  --color-ink-300: #b4abc7;
+  --color-ink-100: #ece8f4;
+  --color-ink-50: #f7f5fb;
+
+  --color-brand-600: #5b21b6;
+  --color-brand-500: #7c3aed;
+  --color-brand-400: #9d5cf5;
+  --color-brand-100: #f0e8ff;
+
+  --color-amber-500: #f59e0b;
+  --color-amber-400: #fbbf24;
+
+  --shadow-card: 0 1px 2px rgba(20, 15, 31, 0.04), 0 12px 24px -8px rgba(20, 15, 31, 0.12);
+  --shadow-float: 0 20px 45px -15px rgba(91, 33, 182, 0.35);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  color: var(--color-ink-700);
+  background: var(--color-ink-50);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Pending indicator for links to app/listings/[id], which intentionally has
+   no loading.js — see components/ui/ListingLinkHint.jsx for why. */
+.listing-link-hint {
+  display: inline-block;
+  width: 0.4rem;
+  height: 0.4rem;
+  margin-left: 0.4rem;
+  border-radius: 9999px;
+  background: currentColor;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.listing-link-hint.is-pending {
+  visibility: visible;
+  animation-name: listing-link-hint-fade-in, listing-link-hint-pulse;
+  animation-duration: 200ms, 1s;
+  animation-delay: 100ms, 100ms;
+  animation-timing-function: ease, ease-in-out;
+  animation-iteration-count: 1, infinite;
+  animation-fill-mode: forwards, none;
+}
+
+@keyframes listing-link-hint-fade-in {
+  to {
+    opacity: 0.6;
+  }
+}
+
+@keyframes listing-link-hint-pulse {
+  50% {
+    opacity: 0.25;
+  }
+}
