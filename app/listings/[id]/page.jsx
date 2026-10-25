@@ -87,6 +87,18 @@ function buildDetailRows(listing) {
   return []
 }
 
+// Matches lib/api.js's safeLocality() fallback string. Duplicated here
+// (rather than imported) because that fallback is private to lib/api.js —
+// if it ever changes, update both.
+const UNKNOWN_LOCALITY = 'Address not listed yet'
+
+function buildListingDescription(listing) {
+  const hasKnownLocality = listing.locality && listing.locality !== UNKNOWN_LOCALITY
+  return hasKnownLocality
+    ? `${listing.type} in ${listing.locality} on Hostel Hive.`
+    : `${listing.type} on Hostel Hive.`
+}
+
 export async function generateMetadata({ params }) {
   const { id } = await params
   const { listing } = await resolveListing(id)
@@ -97,7 +109,7 @@ export async function generateMetadata({ params }) {
 
   return {
     title: listing.name,
-    description: `${listing.type} in ${listing.locality} on Hostel Hive.`,
+    description: buildListingDescription(listing),
   }
 }
 

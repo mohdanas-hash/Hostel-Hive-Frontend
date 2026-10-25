@@ -19,7 +19,7 @@ const currentYear = new Date().getFullYear()
 
 export default function Footer() {
   return (
-    <footer className="border-t border-ink-100 bg-white">
+    <footer className="border-t border-white/10 bg-ink-950">
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
           <div>
@@ -29,11 +29,11 @@ export default function Footer() {
                   <path d="M6 20V11l6-4 6 4v9h-4v-6H10v6z" />
                 </svg>
               </span>
-              <span className="text-lg font-extrabold tracking-tight text-ink-950">
+              <span className="text-lg font-extrabold tracking-tight text-white">
                 Hostel Hive
               </span>
             </Link>
-            <p className="mt-4 max-w-sm text-sm leading-relaxed text-ink-500">
+            <p className="mt-4 max-w-sm text-sm leading-relaxed text-ink-300">
               The student marketplace for finding trusted hostels, messes,
               cafeterias and colleges — with real reviews from real students.
             </p>
@@ -41,13 +41,13 @@ export default function Footer() {
 
           {columns.map((col) => (
             <div key={col.title}>
-              <h3 className="text-sm font-semibold text-ink-950">{col.title}</h3>
+              <h3 className="text-sm font-semibold text-white">{col.title}</h3>
               <ul className="mt-4 space-y-3">
                 {col.links.map((link) => (
                   <li key={link}>
                     <a
                       href="#"
-                      className="text-sm text-ink-500 transition-colors hover:text-brand-600"
+                      className="text-sm text-ink-300 transition-colors hover:text-brand-400"
                     >
                       {link}
                     </a>
@@ -58,15 +58,15 @@ export default function Footer() {
           ))}
         </div>
 
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-ink-100 pt-6 sm:flex-row">
-          <p className="text-xs text-ink-500">
+        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 sm:flex-row">
+          <p className="text-xs text-ink-300">
             © {currentYear} Hostel Hive. All rights reserved.
           </p>
-          <div className="flex gap-6 text-xs text-ink-500">
-            <a href="#" className="hover:text-brand-600">
+          <div className="flex gap-6 text-xs text-ink-300">
+            <a href="#" className="hover:text-brand-400">
               Privacy
             </a>
-            <a href="#" className="hover:text-brand-600">
+            <a href="#" className="hover:text-brand-400">
               Terms
             </a>
           </div>

@@ -10,13 +10,32 @@ const plusJakartaSans = Plus_Jakarta_Sans({
   display: 'swap',
 })
 
+const SITE_NAME = 'Hostel Hive'
+const DEFAULT_TITLE = 'Hostel Hive — Student Housing & Food, Sorted'
+const SITE_DESCRIPTION =
+  'Hostel Hive is the student marketplace for finding and comparing trusted hostels, messes, cafeterias and colleges — backed by real student reviews.'
+
+// No social-preview image is included: public/ has no suitable asset, and
+// og:image/twitter:image both require an absolute URL (no metadataBase is
+// configured, since the production domain isn't known yet — see
+// alternates.canonical in app/explore/page.jsx for the same constraint).
 export const metadata = {
   title: {
-    default: 'Hostel Hive — Student Housing & Food, Sorted',
+    default: DEFAULT_TITLE,
     template: '%s | Hostel Hive',
   },
-  description:
-    'Hostel Hive is the student marketplace for finding and comparing trusted hostels, messes, cafeterias and colleges — backed by real student reviews.',
+  description: SITE_DESCRIPTION,
+  openGraph: {
+    title: DEFAULT_TITLE,
+    description: SITE_DESCRIPTION,
+    siteName: SITE_NAME,
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: DEFAULT_TITLE,
+    description: SITE_DESCRIPTION,
+  },
 }
 
 export const viewport = {

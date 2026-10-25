@@ -36,32 +36,41 @@ export default function Hero() {
   return (
     <section className="relative overflow-hidden bg-ink-950">
       <div
-        className="pointer-events-none absolute inset-0 opacity-40"
+        className="pointer-events-none absolute inset-0 opacity-50"
         style={{
           background:
-            'radial-gradient(60% 50% at 80% 0%, rgba(124,58,237,0.5), transparent), radial-gradient(40% 40% at 10% 100%, rgba(245,158,11,0.25), transparent)',
+            'radial-gradient(60% 50% at 80% 0%, rgba(124,58,237,0.55), transparent), radial-gradient(45% 45% at 12% 105%, rgba(245,158,11,0.3), transparent), radial-gradient(35% 35% at 50% 0%, rgba(157,92,245,0.25), transparent)',
+        }}
+      />
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.07]"
+        style={{
+          backgroundImage:
+            'linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)',
+          backgroundSize: '48px 48px',
+          maskImage: 'linear-gradient(to bottom, black, transparent)',
         }}
       />
 
       <div className="relative mx-auto max-w-7xl px-4 pt-20 pb-28 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-3xl text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-medium text-white/80">
+          <span className="animate-fade-up inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-medium text-white/80">
             <span className="h-1.5 w-1.5 rounded-full bg-amber-400" />
             Trusted by 12,000+ students across 40+ campuses
           </span>
 
-          <h1 className="mt-6 text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
+          <h1 className="animate-fade-up-1 mt-6 text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
             Find your home away from home,{' '}
             <span className="text-brand-400">sorted.</span>
           </h1>
 
-          <p className="mx-auto mt-5 max-w-xl text-base text-ink-300 sm:text-lg">
+          <p className="animate-fade-up-2 mx-auto mt-5 max-w-xl text-base text-ink-300 sm:text-lg">
             Discover and compare hostels, messes, cafeterias and colleges —
             backed by real reviews from real students.
           </p>
         </div>
 
-        <div className="mx-auto mt-10 max-w-3xl rounded-2xl bg-white p-2 shadow-float sm:p-3">
+        <div className="animate-fade-up-3 mx-auto mt-10 max-w-3xl rounded-2xl bg-white p-2 shadow-glow sm:p-3">
           <div className="flex gap-1 overflow-x-auto px-2 pt-1 pb-3 sm:px-1">
             {placeholderCategories.map((category) => (
               <button
@@ -116,7 +125,7 @@ export default function Hero() {
           </form>
         </div>
 
-        <div className="mx-auto mt-12 grid max-w-3xl grid-cols-3 gap-4 text-center text-white sm:gap-8">
+        <div className="animate-fade-up-3 mx-auto mt-12 grid max-w-3xl grid-cols-3 gap-4 text-center text-white sm:gap-8">
           {[
             ['2,400+', 'Verified listings'],
             ['12,000+', 'Student reviews'],

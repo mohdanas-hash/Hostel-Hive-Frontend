@@ -13,6 +13,7 @@ export const metadata = {
   title: 'Explore Hostels, Messes & Cafeterias',
   description:
     'Search and filter real student hostels, messes and cafeterias on Hostel Hive.',
+  alternates: { canonical: '/explore' },
 }
 
 export default async function ExplorePage({ searchParams }) {

@@ -24,7 +24,7 @@ export default function ListingCard({ listing }) {
       : 'Price unavailable'
 
   return (
-    <article className="group overflow-hidden rounded-2xl border border-ink-100 bg-white shadow-card transition-transform hover:-translate-y-1">
+    <article className="group overflow-hidden rounded-2xl border border-ink-100 bg-white shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-float motion-reduce:transition-none motion-reduce:hover:translate-y-0">
       <div className="relative h-40 overflow-hidden bg-gradient-to-br from-brand-100 to-amber-400/20">
         {imageUrl && (
           <Image
@@ -32,7 +32,7 @@ export default function ListingCard({ listing }) {
             alt={name}
             fill
             sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-            className="object-cover"
+            className="object-cover transition-transform duration-500 ease-out group-hover:scale-110 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
           />
         )}
         <span className="absolute left-3 top-3 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-brand-600">
