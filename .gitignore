@@ -36,3 +36,6 @@ coverage/
 
 # Deployment/build output
 .vercel/
+
+# Locally installed Claude Code skills (dev tooling, not project code)
+.claude/

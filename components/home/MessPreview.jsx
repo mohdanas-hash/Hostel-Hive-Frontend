@@ -44,7 +44,7 @@ export default async function MessPreview() {
         <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
           <div>
             <div className="flex flex-wrap items-center gap-2">
-              <h2 className="text-2xl font-extrabold text-ink-950 sm:text-3xl">
+              <h2 className="font-display text-2xl font-extrabold text-ink-950 sm:text-3xl">
                 Messes & affordable food, sorted
               </h2>
               {isSample && (

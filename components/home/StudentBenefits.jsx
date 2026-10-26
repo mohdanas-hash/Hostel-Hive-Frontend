@@ -34,7 +34,7 @@ export default function StudentBenefits() {
     <section className="bg-white py-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center">
-          <h2 className="text-2xl font-extrabold text-ink-950 sm:text-3xl">
+          <h2 className="font-display text-2xl font-extrabold text-ink-950 sm:text-3xl">
             Built for the way students actually search
           </h2>
           <p className="mx-auto mt-2 max-w-xl text-sm text-ink-500 sm:text-base">

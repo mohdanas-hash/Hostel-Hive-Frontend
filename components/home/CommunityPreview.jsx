@@ -15,7 +15,7 @@ export default function CommunityPreview() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
           <div>
-            <h2 className="text-2xl font-extrabold text-ink-950 sm:text-3xl">
+            <h2 className="font-display text-2xl font-extrabold text-ink-950 sm:text-3xl">
               Talk to students who get it
             </h2>
             <p className="mt-2 max-w-xl text-sm text-ink-500 sm:text-base">

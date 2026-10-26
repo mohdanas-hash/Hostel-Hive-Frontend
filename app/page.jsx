@@ -13,25 +13,46 @@ import PopularCategories from '../components/home/PopularCategories'
 import StudentBenefits from '../components/home/StudentBenefits'
 import Testimonials from '../components/home/Testimonials'
 import TrustSection from '../components/home/TrustSection'
+import Reveal from '../components/ui/Reveal'
 
 export default function HomePage() {
   return (
     <>
       <Hero />
-      <CategoryGrid />
-      <Suspense fallback={<FeaturedListingsSkeleton />}>
-        <FeaturedListings />
-      </Suspense>
-      <Suspense fallback={<MessPreviewSkeleton />}>
-        <MessPreview />
-      </Suspense>
-      <CommunityPreview />
-      <HowItWorks />
-      <StudentBenefits />
-      <PopularCategories />
-      <Testimonials />
-      <TrustSection />
-      <FAQSection />
+      <Reveal>
+        <CategoryGrid />
+      </Reveal>
+      <Reveal>
+        <Suspense fallback={<FeaturedListingsSkeleton />}>
+          <FeaturedListings />
+        </Suspense>
+      </Reveal>
+      <Reveal>
+        <Suspense fallback={<MessPreviewSkeleton />}>
+          <MessPreview />
+        </Suspense>
+      </Reveal>
+      <Reveal>
+        <CommunityPreview />
+      </Reveal>
+      <Reveal>
+        <HowItWorks />
+      </Reveal>
+      <Reveal>
+        <StudentBenefits />
+      </Reveal>
+      <Reveal>
+        <PopularCategories />
+      </Reveal>
+      <Reveal>
+        <Testimonials />
+      </Reveal>
+      <Reveal>
+        <TrustSection />
+      </Reveal>
+      <Reveal>
+        <FAQSection />
+      </Reveal>
       <CtaBanner />
     </>
   )

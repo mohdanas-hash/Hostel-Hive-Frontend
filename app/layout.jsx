@@ -1,4 +1,4 @@
-import { Plus_Jakarta_Sans } from 'next/font/google'
+import { Playfair_Display, Plus_Jakarta_Sans } from 'next/font/google'
 import { logoutAction } from './actions/auth'
 import Footer from '../components/layout/Footer'
 import Navbar from '../components/layout/Navbar'
@@ -9,6 +9,18 @@ const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700', '800'],
   variable: '--font-plus-jakarta-sans',
+  display: 'swap',
+})
+
+// Editorial display face for hero/section headlines only (the
+// ui-ux-pro-max design-system search for this product recommended an
+// Inter/Playfair pairing) — Plus Jakarta Sans stays the body/UI face
+// everywhere else, so this is additive, not a site-wide font swap.
+const playfairDisplay = Playfair_Display({
+  subsets: ['latin'],
+  weight: ['700', '800'],
+  style: ['normal', 'italic'],
+  variable: '--font-playfair-display',
   display: 'swap',
 })
 
@@ -49,7 +61,11 @@ export default async function RootLayout({ children }) {
   const user = await getCurrentUser()
 
   return (
-    <html lang="en" className={plusJakartaSans.variable}>
+    <html
+      lang="en"
+      data-scroll-behavior="smooth"
+      className={`${plusJakartaSans.variable} ${playfairDisplay.variable}`}
+    >
       <body className="flex min-h-screen flex-col bg-ink-50 font-sans">
         <Navbar user={user} logoutAction={logoutAction} />
         <main className="flex-1">{children}</main>

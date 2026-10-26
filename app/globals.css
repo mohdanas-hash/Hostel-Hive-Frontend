@@ -2,6 +2,7 @@
 
 @theme {
   --font-sans: var(--font-plus-jakarta-sans), system-ui, "Segoe UI", sans-serif;
+  --font-display: var(--font-playfair-display), Georgia, serif;
 
   --color-ink-950: #140f1f;
   --color-ink-900: #1c1530;
@@ -20,9 +21,23 @@
   --color-amber-500: #f59e0b;
   --color-amber-400: #fbbf24;
 
+  --color-teal-500: #14b8a6;
+  --color-teal-400: #2dd4bf;
+  --color-teal-100: #d7f6f2;
+
+  /* Conversion accent — deliberately distinct from the brand violet, per the
+     ui-ux-pro-max design-system search for this product ("trust purple +
+     transaction green"): violet carries brand/selection state everywhere,
+     this green is reserved for the handful of actions that actually convert
+     a visitor (register, primary search/booking CTAs). */
+  --color-accent-600: #16a34a;
+  --color-accent-500: #22c55e;
+  --color-on-accent: #052e16;
+
   --shadow-card: 0 1px 2px rgba(20, 15, 31, 0.04), 0 12px 24px -8px rgba(20, 15, 31, 0.12);
   --shadow-float: 0 20px 45px -15px rgba(91, 33, 182, 0.35);
   --shadow-glow: 0 0 0 1px rgba(157, 92, 245, 0.15), 0 20px 50px -12px rgba(124, 58, 237, 0.45);
+  --shadow-teal-glow: 0 0 0 1px rgba(45, 212, 191, 0.18), 0 16px 40px -14px rgba(20, 184, 166, 0.4);
 }
 
 html {
@@ -116,5 +131,88 @@ body {
     animation: none;
     opacity: 1;
     transform: none;
+  }
+}
+
+/* Scroll-triggered section reveal — see components/ui/Reveal.jsx. Pure CSS
+   transition (not @keyframes) so a mid-scroll interrupt doesn't snap back. */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Accessible dialog enter/exit (logout confirmation, create-post modal). */
+@keyframes dialog-backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes dialog-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-dialog-backdrop {
+  animation: dialog-backdrop-in 0.2s ease-out both;
+}
+
+.animate-dialog-panel {
+  animation: dialog-panel-in 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-dialog-backdrop,
+  .animate-dialog-panel {
+    animation: none;
+  }
+}
+
+/* Loading shimmer for async embeds (e.g. the map iframe) that can't use a
+   plain bg-ink-100 pulse because content loads underneath it. */
+@keyframes shimmer-sweep {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+.shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+  animation: shimmer-sweep 1.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shimmer::after {
+    animation: none;
   }
 }

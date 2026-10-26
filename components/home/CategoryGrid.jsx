@@ -49,7 +49,7 @@ export default function CategoryGrid() {
   return (
     <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
       <div className="text-center">
-        <h2 className="text-2xl font-extrabold text-ink-950 sm:text-3xl">
+        <h2 className="font-display text-2xl font-extrabold text-ink-950 sm:text-3xl">
           Everything a student needs, in one place
         </h2>
         <p className="mx-auto mt-2 max-w-xl text-sm text-ink-500 sm:text-base">

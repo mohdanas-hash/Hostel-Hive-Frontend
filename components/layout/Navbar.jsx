@@ -2,7 +2,8 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
+import ConfirmDialog from '../ui/ConfirmDialog'
 
 const navLinks = [
   { to: '/explore', label: 'Explore' },
@@ -22,12 +23,62 @@ function NavItem({ to, label, onClick }) {
     <Link
       href={to}
       onClick={onClick}
-      className={`rounded text-sm font-medium transition-colors ${FOCUS_RING} ${
+      aria-current={isActive ? 'page' : undefined}
+      className={`group relative rounded text-sm font-medium transition-colors ${FOCUS_RING} ${
         isActive ? 'text-brand-400' : 'text-ink-300 hover:text-white'
       }`}
     >
       {label}
+      <span
+        className={`absolute -bottom-1.5 left-0 h-px w-full origin-left scale-x-0 bg-brand-400 transition-transform duration-300 ease-out group-hover:scale-x-100 ${
+          isActive ? 'scale-x-100' : ''
+        }`}
+        aria-hidden="true"
+      />
     </Link>
+  )
+}
+
+// Submits the hidden logout form via requestSubmit() after the user
+// confirms — redirect() inside the server action is handled natively by the
+// form's navigation, so there's no need to intercept or interpret the
+// NEXT_REDIRECT control-flow error that calling the action as a bare async
+// function would raise.
+function LogoutControl({ user, logoutAction, variant = 'desktop' }) {
+  const [confirmOpen, setConfirmOpen] = useState(false)
+  const [pending, setPending] = useState(false)
+  const formRef = useRef(null)
+
+  function handleConfirm() {
+    setPending(true)
+    formRef.current?.requestSubmit()
+  }
+
+  const triggerClasses =
+    variant === 'desktop'
+      ? `rounded-full border border-white/15 px-5 py-2.5 text-sm font-semibold text-ink-300 transition-colors hover:border-white/30 hover:text-white ${FOCUS_RING}`
+      : `w-full rounded-full border border-white/15 px-5 py-2.5 text-sm font-semibold text-ink-300 transition-colors hover:text-white ${FOCUS_RING}`
+
+  return (
+    <>
+      <span className="text-sm font-medium text-ink-300">Hi, {user.name.split(' ')[0]}</span>
+      <form ref={formRef} action={logoutAction} className={variant === 'mobile' ? 'w-full' : undefined}>
+        <button type="button" onClick={() => setConfirmOpen(true)} className={triggerClasses}>
+          Log out
+        </button>
+      </form>
+
+      <ConfirmDialog
+        open={confirmOpen}
+        title="Log out of Hostel Hive?"
+        description="You'll need to log in again to access your account."
+        confirmLabel="Yes, log out"
+        cancelLabel="No, stay"
+        pending={pending}
+        onConfirm={handleConfirm}
+        onCancel={() => setConfirmOpen(false)}
+      />
+    </>
   )
 }
 
@@ -35,15 +86,7 @@ function AuthControls({ user, logoutAction, className = '' }) {
   if (user) {
     return (
       <div className={`flex items-center gap-3 ${className}`}>
-        <span className="text-sm font-medium text-ink-300">Hi, {user.name.split(' ')[0]}</span>
-        <form action={logoutAction}>
-          <button
-            type="submit"
-            className={`rounded-full border border-white/15 px-5 py-2.5 text-sm font-semibold text-ink-300 hover:text-white ${FOCUS_RING}`}
-          >
-            Log out
-          </button>
-        </form>
+        <LogoutControl user={user} logoutAction={logoutAction} variant="desktop" />
       </div>
     )
   }
@@ -58,7 +101,7 @@ function AuthControls({ user, logoutAction, className = '' }) {
       </Link>
       <Link
         href="/register"
-        className={`rounded-full bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white shadow-glow transition-transform hover:-translate-y-0.5 hover:bg-brand-500 ${FOCUS_RING}`}
+        className={`rounded-full bg-accent-600 px-5 py-2.5 text-sm font-semibold text-on-accent transition-transform hover:-translate-y-0.5 hover:bg-accent-500 ${FOCUS_RING}`}
       >
         Get started
       </Link>
@@ -122,17 +165,7 @@ export default function Navbar({ user = null, logoutAction }) {
           ))}
           <div className="mt-2 flex flex-col gap-3">
             {user ? (
-              <>
-                <span className="text-sm font-medium text-ink-300">Hi, {user.name.split(' ')[0]}</span>
-                <form action={logoutAction}>
-                  <button
-                    type="submit"
-                    className={`w-full rounded-full border border-white/15 px-5 py-2.5 text-sm font-semibold text-ink-300 ${FOCUS_RING}`}
-                  >
-                    Log out
-                  </button>
-                </form>
-              </>
+              <LogoutControl user={user} logoutAction={logoutAction} variant="mobile" />
             ) : (
               <>
                 <Link
@@ -145,7 +178,7 @@ export default function Navbar({ user = null, logoutAction }) {
                 <Link
                   href="/register"
                   onClick={() => setOpen(false)}
-                  className={`rounded-full bg-brand-600 px-5 py-2.5 text-center text-sm font-semibold text-white ${FOCUS_RING}`}
+                  className={`rounded-full bg-accent-600 px-5 py-2.5 text-center text-sm font-semibold text-on-accent ${FOCUS_RING}`}
                 >
                   Get started
                 </Link>

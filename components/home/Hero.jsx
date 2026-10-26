@@ -59,9 +59,9 @@ export default function Hero() {
             Trusted by 12,000+ students across 40+ campuses
           </span>
 
-          <h1 className="animate-fade-up-1 mt-6 text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
+          <h1 className="animate-fade-up-1 font-display mt-6 text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
             Find your home away from home,{' '}
-            <span className="text-brand-400">sorted.</span>
+            <span className="italic text-brand-400">sorted.</span>
           </h1>
 
           <p className="animate-fade-up-2 mx-auto mt-5 max-w-xl text-base text-ink-300 sm:text-lg">

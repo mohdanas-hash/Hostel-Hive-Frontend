@@ -14,7 +14,7 @@ const popularCategories = [
 export default function PopularCategories() {
   return (
     <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-      <h2 className="text-2xl font-extrabold text-ink-950 sm:text-3xl">
+      <h2 className="font-display text-2xl font-extrabold text-ink-950 sm:text-3xl">
         Popular searches
       </h2>
       <p className="mt-2 max-w-xl text-sm text-ink-500 sm:text-base">

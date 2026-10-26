@@ -100,7 +100,7 @@ export default function RegisterForm({ colleges = [] }) {
       <button
         type="submit"
         disabled={pending}
-        className={`w-full rounded-xl bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand-500 disabled:cursor-wait disabled:opacity-70 ${FOCUS_RING}`}
+        className={`w-full rounded-xl bg-accent-600 px-5 py-2.5 text-sm font-semibold text-on-accent transition-colors hover:bg-accent-500 disabled:cursor-wait disabled:opacity-70 ${FOCUS_RING}`}
       >
         {pending ? 'Creating account…' : 'Create account'}
       </button>

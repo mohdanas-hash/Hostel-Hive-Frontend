@@ -18,7 +18,7 @@ export default function TrustSection() {
     <section className="bg-ink-50 py-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl">
-          <h2 className="text-2xl font-extrabold text-ink-950 sm:text-3xl">
+          <h2 className="font-display text-2xl font-extrabold text-ink-950 sm:text-3xl">
             How to evaluate what you see here
           </h2>
           <p className="mt-2 text-sm text-ink-500 sm:text-base">
