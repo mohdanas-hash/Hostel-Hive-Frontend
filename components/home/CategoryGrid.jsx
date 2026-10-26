@@ -35,6 +35,14 @@ const categories = [
       <path d="M12 3l9 5-9 5-9-5 9-5zm-7 8.2v4.1c0 1.3 3.1 3.7 7 3.7s7-2.4 7-3.7v-4.1l-7 3.9-7-3.9z" />
     ),
   },
+  {
+    title: 'Community',
+    description: 'Ask questions and swap experiences with other students.',
+    href: '/community',
+    icon: (
+      <path d="M12 12a4 4 0 100-8 4 4 0 000 8zm0 2c-4.4 0-8 2.2-8 5v1h16v-1c0-2.8-3.6-5-8-5z" />
+    ),
+  },
 ]
 
 export default function CategoryGrid() {
@@ -49,7 +57,7 @@ export default function CategoryGrid() {
         </p>
       </div>
 
-      <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-5">
         {categories.map((category) => (
           <Link
             key={category.title}
