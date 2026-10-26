@@ -1,6 +1,8 @@
 import { Plus_Jakarta_Sans } from 'next/font/google'
+import { logoutAction } from './actions/auth'
 import Footer from '../components/layout/Footer'
 import Navbar from '../components/layout/Navbar'
+import { getCurrentUser } from '../lib/auth'
 import './globals.css'
 
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -43,11 +45,13 @@ export const viewport = {
   initialScale: 1,
 }
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const user = await getCurrentUser()
+
   return (
     <html lang="en" className={plusJakartaSans.variable}>
       <body className="flex min-h-screen flex-col bg-ink-50 font-sans">
-        <Navbar />
+        <Navbar user={user} logoutAction={logoutAction} />
         <main className="flex-1">{children}</main>
         <Footer />
       </body>

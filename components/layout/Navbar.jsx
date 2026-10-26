@@ -31,7 +31,42 @@ function NavItem({ to, label, onClick }) {
   )
 }
 
-export default function Navbar() {
+function AuthControls({ user, logoutAction, className = '' }) {
+  if (user) {
+    return (
+      <div className={`flex items-center gap-3 ${className}`}>
+        <span className="text-sm font-medium text-ink-300">Hi, {user.name.split(' ')[0]}</span>
+        <form action={logoutAction}>
+          <button
+            type="submit"
+            className={`rounded-full border border-white/15 px-5 py-2.5 text-sm font-semibold text-ink-300 hover:text-white ${FOCUS_RING}`}
+          >
+            Log out
+          </button>
+        </form>
+      </div>
+    )
+  }
+
+  return (
+    <div className={`flex items-center gap-3 ${className}`}>
+      <Link
+        href="/login"
+        className={`rounded text-sm font-semibold text-ink-300 hover:text-white ${FOCUS_RING}`}
+      >
+        Log in
+      </Link>
+      <Link
+        href="/register"
+        className={`rounded-full bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white shadow-glow transition-transform hover:-translate-y-0.5 hover:bg-brand-500 ${FOCUS_RING}`}
+      >
+        Get started
+      </Link>
+    </div>
+  )
+}
+
+export default function Navbar({ user = null, logoutAction }) {
   const [open, setOpen] = useState(false)
 
   return (
@@ -54,20 +89,7 @@ export default function Navbar() {
           ))}
         </nav>
 
-        <div className="hidden items-center gap-3 lg:flex">
-          <button
-            type="button"
-            className={`rounded text-sm font-semibold text-ink-300 hover:text-white ${FOCUS_RING}`}
-          >
-            Log in
-          </button>
-          <button
-            type="button"
-            className={`rounded-full bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white shadow-glow transition-transform hover:-translate-y-0.5 hover:bg-brand-500 ${FOCUS_RING}`}
-          >
-            Get started
-          </button>
-        </div>
+        <AuthControls user={user} logoutAction={logoutAction} className="hidden lg:flex" />
 
         <button
           type="button"
@@ -99,18 +121,36 @@ export default function Navbar() {
             <NavItem key={link.to} {...link} onClick={() => setOpen(false)} />
           ))}
           <div className="mt-2 flex flex-col gap-3">
-            <button
-              type="button"
-              className={`rounded-full border border-white/15 px-5 py-2.5 text-sm font-semibold text-ink-300 ${FOCUS_RING}`}
-            >
-              Log in
-            </button>
-            <button
-              type="button"
-              className={`rounded-full bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white ${FOCUS_RING}`}
-            >
-              Get started
-            </button>
+            {user ? (
+              <>
+                <span className="text-sm font-medium text-ink-300">Hi, {user.name.split(' ')[0]}</span>
+                <form action={logoutAction}>
+                  <button
+                    type="submit"
+                    className={`w-full rounded-full border border-white/15 px-5 py-2.5 text-sm font-semibold text-ink-300 ${FOCUS_RING}`}
+                  >
+                    Log out
+                  </button>
+                </form>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/login"
+                  onClick={() => setOpen(false)}
+                  className={`rounded-full border border-white/15 px-5 py-2.5 text-center text-sm font-semibold text-ink-300 ${FOCUS_RING}`}
+                >
+                  Log in
+                </Link>
+                <Link
+                  href="/register"
+                  onClick={() => setOpen(false)}
+                  className={`rounded-full bg-brand-600 px-5 py-2.5 text-center text-sm font-semibold text-white ${FOCUS_RING}`}
+                >
+                  Get started
+                </Link>
+              </>
+            )}
           </div>
         </nav>
       )}

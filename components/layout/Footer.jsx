@@ -3,15 +3,27 @@ import Link from 'next/link'
 const columns = [
   {
     title: 'Discover',
-    links: ['Hostels', 'Messes', 'Cafeterias', 'Colleges'],
+    links: [
+      { label: 'Hostels', href: '/explore?type=hostel' },
+      { label: 'Messes', href: '/messes' },
+      { label: 'Cafeterias', href: '/explore?type=cafeteria' },
+      { label: 'Colleges', href: '/colleges' },
+    ],
   },
   {
     title: 'Students',
-    links: ['Reviews', 'Community', 'Compare', 'Help Center'],
+    links: [
+      { label: 'Explore listings', href: '/explore' },
+      { label: 'Community', href: '/community' },
+      { label: 'Help Center', href: '/contact' },
+    ],
   },
   {
     title: 'Company',
-    links: ['About Us', 'Careers', 'Contact', 'Partner with us'],
+    links: [
+      { label: 'About Us', href: '/about' },
+      { label: 'Contact', href: '/contact' },
+    ],
   },
 ]
 
@@ -44,13 +56,13 @@ export default function Footer() {
               <h3 className="text-sm font-semibold text-white">{col.title}</h3>
               <ul className="mt-4 space-y-3">
                 {col.links.map((link) => (
-                  <li key={link}>
-                    <a
-                      href="#"
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
                       className="text-sm text-ink-300 transition-colors hover:text-brand-400"
                     >
-                      {link}
-                    </a>
+                      {link.label}
+                    </Link>
                   </li>
                 ))}
               </ul>
