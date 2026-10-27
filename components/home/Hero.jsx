@@ -2,24 +2,125 @@
 
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { motion, useReducedMotion } from 'framer-motion'
 import { placeholderCategories } from '../../data/placeholderListings'
 import { buildExploreQueryString, CATEGORY_TYPE_MAP } from '../../lib/listings'
+import HeroIllustration from './HeroIllustration'
+
+const easeOutCubic = [0.16, 1, 0.3, 1]
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.14,
+      delayChildren: 0.08,
+    },
+  },
+}
+
+const badgeVariants = {
+  hidden: { opacity: 0, y: -22 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.55,
+      ease: easeOutCubic,
+    },
+  },
+}
+
+const headlineVariants = {
+  hidden: { opacity: 0, y: 26 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.65,
+      ease: easeOutCubic,
+    },
+  },
+}
+
+const descriptionVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: easeOutCubic,
+    },
+  },
+}
+
+const fadeUpVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: easeOutCubic,
+    },
+  },
+}
+
+const reducedContainerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.05,
+    },
+  },
+}
+
+const reducedItemVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.3,
+    },
+  },
+}
 
 export default function Hero() {
   const router = useRouter()
+  const shouldReduceMotion = useReducedMotion()
   const [activeCategory, setActiveCategory] = useState(
     placeholderCategories[0].id,
   )
   const [query, setQuery] = useState('')
 
+  const activeContainerVariants = shouldReduceMotion
+    ? reducedContainerVariants
+    : containerVariants
+  const activeBadgeVariants = shouldReduceMotion
+    ? reducedItemVariants
+    : badgeVariants
+  const activeHeadlineVariants = shouldReduceMotion
+    ? reducedItemVariants
+    : headlineVariants
+  const activeDescriptionVariants = shouldReduceMotion
+    ? reducedItemVariants
+    : descriptionVariants
+  const activeFadeUpVariants = shouldReduceMotion
+    ? reducedItemVariants
+    : fadeUpVariants
+
   function handleSearchSubmit(event) {
     event.preventDefault()
 
     // The mock data has no "College" listings, so a college search has
-    // nothing to filter — send it to the dedicated Colleges page instead of
-    // an Explore results page that could only ever show zero results.
+    // nothing to filter on /explore — send it to the dedicated Colleges page
+    // instead, carrying the typed query through as its own `q` filter there.
     if (activeCategory === 'colleges') {
-      router.push('/colleges')
+      const trimmed = query.trim()
+      router.push(trimmed ? `/colleges?q=${encodeURIComponent(trimmed)}` : '/colleges')
       return
     }
 
@@ -52,25 +153,77 @@ export default function Hero() {
         }}
       />
 
-      <div className="relative mx-auto max-w-7xl px-4 pt-20 pb-28 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-3xl text-center">
-          <span className="animate-fade-up inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-medium text-white/80">
-            <span className="h-1.5 w-1.5 rounded-full bg-amber-400" />
-            Trusted by 12,000+ students across 40+ campuses
-          </span>
+      <motion.div
+        className="relative mx-auto max-w-7xl px-4 pt-20 pb-28 sm:px-6 lg:px-8"
+        initial="hidden"
+        animate="visible"
+        variants={activeContainerVariants}
+      >
+        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-8">
+          <div className="text-center lg:text-left">
+            <motion.div
+              variants={activeBadgeVariants}
+              className="inline-flex justify-center lg:justify-start"
+            >
+              <motion.span
+                animate={
+                  shouldReduceMotion
+                    ? undefined
+                    : {
+                        scale: [1, 1.028, 1],
+                        boxShadow: [
+                          '0 0 0 0 rgba(251, 191, 36, 0)',
+                          '0 0 16px 2px rgba(251, 191, 36, 0.22)',
+                          '0 0 0 0 rgba(251, 191, 36, 0)',
+                        ],
+                      }
+                }
+                transition={{
+                  duration: 2.8,
+                  repeat: Infinity,
+                  repeatType: 'loop',
+                  ease: 'easeInOut',
+                  delay: 0.5,
+                }}
+                className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-medium text-white/80 backdrop-blur-sm"
+              >
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400 opacity-75" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-amber-400" />
+                </span>
+                Trusted by 12,000+ students across 40+ campuses
+              </motion.span>
+            </motion.div>
 
-          <h1 className="animate-fade-up-1 font-display mt-6 text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
-            Find your home away from home,{' '}
-            <span className="italic text-brand-400">sorted.</span>
-          </h1>
+            <motion.h1
+              variants={activeHeadlineVariants}
+              className="font-display mt-6 text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl"
+            >
+              Find your home away from home,{' '}
+              <span className="italic text-brand-400">sorted.</span>
+            </motion.h1>
 
-          <p className="animate-fade-up-2 mx-auto mt-5 max-w-xl text-base text-ink-300 sm:text-lg">
-            Discover and compare hostels, messes, cafeterias and colleges —
-            backed by real reviews from real students.
-          </p>
+            <motion.p
+              variants={activeDescriptionVariants}
+              className="mx-auto mt-5 max-w-xl text-base text-ink-300 sm:text-lg lg:mx-0"
+            >
+              Discover and compare hostels, messes, cafeterias and colleges —
+              backed by real reviews from real students.
+            </motion.p>
+          </div>
+
+          <motion.div
+            variants={activeFadeUpVariants}
+            className="relative mx-auto hidden w-full max-w-md lg:block"
+          >
+            <HeroIllustration className="aspect-[4/3] w-full" />
+          </motion.div>
         </div>
 
-        <div className="animate-fade-up-3 mx-auto mt-10 max-w-3xl rounded-2xl bg-white p-2 shadow-glow sm:p-3">
+        <motion.div
+          variants={activeFadeUpVariants}
+          className="mx-auto mt-10 max-w-3xl rounded-2xl bg-white p-2 shadow-glow sm:p-3"
+        >
           <div className="flex gap-1 overflow-x-auto px-2 pt-1 pb-3 sm:px-1">
             {placeholderCategories.map((category) => (
               <button
@@ -123,9 +276,12 @@ export default function Hero() {
               Search
             </button>
           </form>
-        </div>
+        </motion.div>
 
-        <div className="animate-fade-up-3 mx-auto mt-12 grid max-w-3xl grid-cols-3 gap-4 text-center text-white sm:gap-8">
+        <motion.div
+          variants={activeFadeUpVariants}
+          className="mx-auto mt-12 grid max-w-3xl grid-cols-3 gap-4 text-center text-white sm:gap-8"
+        >
           {[
             ['2,400+', 'Verified listings'],
             ['12,000+', 'Student reviews'],
@@ -136,8 +292,8 @@ export default function Hero() {
               <p className="mt-1 text-xs text-ink-300 sm:text-sm">{label}</p>
             </div>
           ))}
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </section>
   )
 }

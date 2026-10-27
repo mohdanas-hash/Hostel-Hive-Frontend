@@ -17,18 +17,12 @@ export default function PostCard({ post }) {
         <span className="rounded-full bg-brand-100 px-3 py-1 text-xs font-semibold text-brand-600">
           {CATEGORY_LABELS[post.category] ?? post.category}
         </span>
-        <span className="rounded-full bg-ink-50 px-3 py-1 text-xs font-medium text-ink-500">
-          {post.sampleLabel}
-        </span>
       </div>
 
       <h3 className="mt-3 break-words text-lg font-bold text-ink-950">
         {post.title}
       </h3>
-      <p className="mt-1 text-xs text-ink-500">
-        Posted by {post.authorName}{' '}
-        <span className="text-ink-400">(sample profile, not a real student)</span>
-      </p>
+      <p className="mt-1 text-xs text-ink-500">Posted by {post.authorName}</p>
       <p className="mt-3 break-words text-sm leading-relaxed text-ink-700">
         {post.body}
       </p>
@@ -58,12 +52,11 @@ export default function PostCard({ post }) {
             />
           </svg>
           {displayLikes}
-          <span className="sr-only">likes — this session only, not saved</span>
+          <span className="sr-only">likes</span>
         </button>
 
         <span className="inline-flex items-center gap-1.5 rounded-full border border-ink-100 px-3 py-1.5 text-xs font-semibold text-ink-400">
           {post.commentCount ?? 0} comments
-          <span className="text-ink-300">· coming soon</span>
         </span>
       </div>
     </article>

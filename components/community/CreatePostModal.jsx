@@ -105,7 +105,7 @@ export default function CreatePostModal({ open, onClose, onSubmit }) {
       >
         <div className="flex items-start justify-between gap-4">
           <h2 id="create-post-heading" className="text-xl font-bold text-ink-950">
-            Create a demo post
+            Create a post
           </h2>
           <button
             type="button"
@@ -211,7 +211,7 @@ export default function CreatePostModal({ open, onClose, onSubmit }) {
               type="submit"
               className="rounded-xl bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-brand-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
             >
-              Post demo
+              Post
             </button>
           </div>
         </form>

@@ -19,14 +19,14 @@ async function getPreviewMesses() {
 
 export function MessPreviewSkeleton() {
   return (
-    <section className="bg-white py-16">
+    <section className="bg-ink-50 py-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="h-8 w-64 animate-pulse rounded-lg bg-ink-100 motion-reduce:animate-none" />
         <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-3">
           {Array.from({ length: PREVIEW_COUNT }).map((_, index) => (
             <div
               key={index}
-              className="h-48 animate-pulse rounded-2xl bg-ink-50 motion-reduce:animate-none"
+              className="h-48 animate-pulse rounded-2xl bg-white motion-reduce:animate-none"
             />
           ))}
         </div>
@@ -39,7 +39,7 @@ export default async function MessPreview() {
   const { messes, isSample } = await getPreviewMesses()
 
   return (
-    <section className="bg-white py-16">
+    <section className="bg-ink-50 py-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
           <div>

@@ -81,6 +81,9 @@ export default function Footer() {
             <a href="#" className="hover:text-brand-400">
               Terms
             </a>
+            <Link href="/sitemap.xml" className="hover:text-brand-400">
+              Sitemap
+            </Link>
           </div>
         </div>
       </div>

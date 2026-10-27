@@ -1,14 +1,17 @@
 'use client'
 
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useSearchParams } from 'next/navigation'
 import { useRef, useState } from 'react'
+import AuthModal from '../auth/AuthModal'
 import ConfirmDialog from '../ui/ConfirmDialog'
 
 const navLinks = [
   { to: '/explore', label: 'Explore' },
-  { to: '/messes', label: 'Messes & Food' },
   { to: '/colleges', label: 'Colleges' },
+  { to: '/explore?type=hostel', label: 'Hostels' },
+  { to: '/messes', label: 'Mess' },
+  { to: '/explore?type=cafeteria', label: 'Cafeterias' },
   { to: '/community', label: 'Community' },
 ]
 
@@ -17,7 +20,10 @@ const FOCUS_RING =
 
 function NavItem({ to, label, onClick }) {
   const pathname = usePathname()
-  const isActive = pathname === to
+  const searchParams = useSearchParams()
+  const [toPath, toQuery = ''] = to.split('?')
+  const toType = new URLSearchParams(toQuery).get('type')
+  const isActive = pathname === toPath && searchParams.get('type') === toType
 
   return (
     <Link
@@ -82,7 +88,7 @@ function LogoutControl({ user, logoutAction, variant = 'desktop' }) {
   )
 }
 
-function AuthControls({ user, logoutAction, className = '' }) {
+function AuthControls({ user, logoutAction, className = '', onOpenAuth }) {
   if (user) {
     return (
       <div className={`flex items-center gap-3 ${className}`}>
@@ -93,24 +99,32 @@ function AuthControls({ user, logoutAction, className = '' }) {
 
   return (
     <div className={`flex items-center gap-3 ${className}`}>
-      <Link
-        href="/login"
+      <button
+        type="button"
+        onClick={() => onOpenAuth('login')}
         className={`rounded text-sm font-semibold text-ink-300 hover:text-white ${FOCUS_RING}`}
       >
         Log in
-      </Link>
-      <Link
-        href="/register"
-        className={`rounded-full bg-accent-600 px-5 py-2.5 text-sm font-semibold text-on-accent transition-transform hover:-translate-y-0.5 hover:bg-accent-500 ${FOCUS_RING}`}
+      </button>
+      <button
+        type="button"
+        onClick={() => onOpenAuth('register')}
+        className={`rounded-full bg-brand-700 px-5 py-2.5 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5 hover:bg-brand-600 ${FOCUS_RING}`}
       >
-        Get started
-      </Link>
+        Sign in
+      </button>
     </div>
   )
 }
 
-export default function Navbar({ user = null, logoutAction }) {
+export default function Navbar({ user = null, logoutAction, colleges = [] }) {
   const [open, setOpen] = useState(false)
+  const [authModal, setAuthModal] = useState({ open: false, tab: 'login' })
+
+  function openAuth(tab) {
+    setOpen(false)
+    setAuthModal({ open: true, tab })
+  }
 
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-ink-950/90 backdrop-blur-md">
@@ -132,7 +146,12 @@ export default function Navbar({ user = null, logoutAction }) {
           ))}
         </nav>
 
-        <AuthControls user={user} logoutAction={logoutAction} className="hidden lg:flex" />
+        <AuthControls
+          user={user}
+          logoutAction={logoutAction}
+          className="hidden lg:flex"
+          onOpenAuth={openAuth}
+        />
 
         <button
           type="button"
@@ -168,25 +187,32 @@ export default function Navbar({ user = null, logoutAction }) {
               <LogoutControl user={user} logoutAction={logoutAction} variant="mobile" />
             ) : (
               <>
-                <Link
-                  href="/login"
-                  onClick={() => setOpen(false)}
+                <button
+                  type="button"
+                  onClick={() => openAuth('login')}
                   className={`rounded-full border border-white/15 px-5 py-2.5 text-center text-sm font-semibold text-ink-300 ${FOCUS_RING}`}
                 >
                   Log in
-                </Link>
-                <Link
-                  href="/register"
-                  onClick={() => setOpen(false)}
-                  className={`rounded-full bg-accent-600 px-5 py-2.5 text-center text-sm font-semibold text-on-accent ${FOCUS_RING}`}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => openAuth('register')}
+                  className={`rounded-full bg-brand-700 px-5 py-2.5 text-center text-sm font-semibold text-white ${FOCUS_RING}`}
                 >
-                  Get started
-                </Link>
+                  Sign in
+                </button>
               </>
             )}
           </div>
         </nav>
       )}
+
+      <AuthModal
+        open={authModal.open}
+        onClose={() => setAuthModal((prev) => ({ ...prev, open: false }))}
+        initialTab={authModal.tab}
+        colleges={colleges}
+      />
     </header>
   )
 }

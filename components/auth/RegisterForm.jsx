@@ -36,7 +36,7 @@ function Field({ id, name, label, type = 'text', autoComplete, fieldErrors }) {
   )
 }
 
-export default function RegisterForm({ colleges = [] }) {
+export default function RegisterForm({ colleges = [], onSwitchToLogin }) {
   const [state, formAction, pending] = useActionState(registerAction, initialState)
 
   return (
@@ -107,9 +107,19 @@ export default function RegisterForm({ colleges = [] }) {
 
       <p className="text-center text-sm text-ink-500">
         Already have an account?{' '}
-        <Link href="/login" className={`font-semibold text-brand-600 hover:underline ${FOCUS_RING}`}>
-          Log in
-        </Link>
+        {onSwitchToLogin ? (
+          <button
+            type="button"
+            onClick={onSwitchToLogin}
+            className={`font-semibold text-brand-600 hover:underline ${FOCUS_RING}`}
+          >
+            Log in
+          </button>
+        ) : (
+          <Link href="/login" className={`font-semibold text-brand-600 hover:underline ${FOCUS_RING}`}>
+            Log in
+          </Link>
+        )}
       </p>
     </form>
   )

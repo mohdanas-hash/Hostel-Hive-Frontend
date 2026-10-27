@@ -2,6 +2,7 @@ import { Playfair_Display, Plus_Jakarta_Sans } from 'next/font/google'
 import { logoutAction } from './actions/auth'
 import Footer from '../components/layout/Footer'
 import Navbar from '../components/layout/Navbar'
+import { fetchColleges } from '../lib/api'
 import { getCurrentUser } from '../lib/auth'
 import './globals.css'
 
@@ -59,6 +60,9 @@ export const viewport = {
 
 export default async function RootLayout({ children }) {
   const user = await getCurrentUser()
+  // Non-fatal: the college picker in the sign-up form is a nice-to-have, not
+  // a blocker — see the same pattern in app/register/page.jsx.
+  const colleges = await fetchColleges().catch(() => [])
 
   return (
     <html
@@ -67,7 +71,7 @@ export default async function RootLayout({ children }) {
       className={`${plusJakartaSans.variable} ${playfairDisplay.variable}`}
     >
       <body className="flex min-h-screen flex-col bg-ink-50 font-sans">
-        <Navbar user={user} logoutAction={logoutAction} />
+        <Navbar user={user} logoutAction={logoutAction} colleges={colleges} />
         <main className="flex-1">{children}</main>
         <Footer />
       </body>

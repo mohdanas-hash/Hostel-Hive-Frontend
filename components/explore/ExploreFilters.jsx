@@ -126,31 +126,33 @@ export default function ExploreFilters({ typeOptions, amenityOptions, initialFil
         </button>
       </form>
 
-      <fieldset>
-        <legend className="text-xs font-semibold uppercase tracking-wide text-ink-500">
-          Type
-        </legend>
-        <div className="mt-2 flex flex-wrap gap-2">
-          <TypePill
-            id="explore-type-all"
-            checked={!filters.type}
-            label="All"
-            onChange={() => handleTypeChange('')}
-          />
-          {typeOptions.map((type) => {
-            const value = type.toLowerCase()
-            return (
-              <TypePill
-                key={type}
-                id={`explore-type-${value}`}
-                checked={filters.type === value}
-                label={type}
-                onChange={() => handleTypeChange(value)}
-              />
-            )
-          })}
-        </div>
-      </fieldset>
+      {!filters.type && (
+        <fieldset>
+          <legend className="text-xs font-semibold uppercase tracking-wide text-ink-500">
+            Type
+          </legend>
+          <div className="mt-2 flex flex-wrap gap-2">
+            <TypePill
+              id="explore-type-all"
+              checked={!filters.type}
+              label="All"
+              onChange={() => handleTypeChange('')}
+            />
+            {typeOptions.map((type) => {
+              const value = type.toLowerCase()
+              return (
+                <TypePill
+                  key={type}
+                  id={`explore-type-${value}`}
+                  checked={filters.type === value}
+                  label={type}
+                  onChange={() => handleTypeChange(value)}
+                />
+              )
+            })}
+          </div>
+        </fieldset>
+      )}
 
       {amenityOptions.length > 0 && (
         <fieldset>

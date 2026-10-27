@@ -31,7 +31,7 @@ const benefits = [
 
 export default function StudentBenefits() {
   return (
-    <section className="bg-white py-16">
+    <section className="bg-ink-50 py-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <h2 className="font-display text-2xl font-extrabold text-ink-950 sm:text-3xl">
@@ -46,7 +46,7 @@ export default function StudentBenefits() {
           {benefits.map((benefit) => (
             <div
               key={benefit.title}
-              className="rounded-2xl border border-ink-100 bg-ink-50 p-6"
+              className="rounded-2xl border border-ink-100 bg-white p-6"
             >
               <div className="grid h-12 w-12 place-items-center rounded-xl bg-brand-100 text-brand-600">
                 <svg viewBox="0 0 24 24" className="h-6 w-6" fill="currentColor">

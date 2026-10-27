@@ -230,7 +230,11 @@ export default async function ListingDetailPage({ params }) {
             </p>
           </div>
 
-          <BookingAction type={type} />
+          <BookingAction
+            type={type}
+            listingName={name}
+            baseAmount={typeof priceFrom === 'number' ? priceFrom : undefined}
+          />
         </aside>
       </div>
     </section>

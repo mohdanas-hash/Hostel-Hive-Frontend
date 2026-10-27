@@ -30,7 +30,7 @@ export default function CommunityFeed({ initialPosts }) {
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex flex-1 items-center gap-2 rounded-xl border border-ink-100 bg-white px-4 py-3 shadow-card focus-within:ring-2 focus-within:ring-brand-500">
           <label htmlFor={searchId} className="sr-only">
-            Search sample posts
+            Search posts
           </label>
           <svg
             viewBox="0 0 24 24"
@@ -47,7 +47,7 @@ export default function CommunityFeed({ initialPosts }) {
             type="text"
             value={query}
             onChange={(event) => setQuery(event.target.value)}
-            placeholder="Search sample posts"
+            placeholder="Search posts"
             className="w-full bg-transparent text-sm text-ink-950 placeholder:text-ink-500 focus:outline-none"
           />
         </div>
@@ -107,7 +107,7 @@ export default function CommunityFeed({ initialPosts }) {
             >
               clear filters
             </button>{' '}
-            to see all sample posts.
+            to see all posts.
           </p>
         </div>
       )}

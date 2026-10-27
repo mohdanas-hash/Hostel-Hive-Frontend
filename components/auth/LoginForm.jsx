@@ -9,7 +9,7 @@ const FOCUS_RING =
 
 const initialState = { message: null, fieldErrors: {} }
 
-export default function LoginForm() {
+export default function LoginForm({ onSwitchToRegister }) {
   const [state, formAction, pending] = useActionState(loginAction, initialState)
 
   return (
@@ -72,9 +72,19 @@ export default function LoginForm() {
 
       <p className="text-center text-sm text-ink-500">
         Don&apos;t have an account?{' '}
-        <Link href="/register" className={`font-semibold text-brand-600 hover:underline ${FOCUS_RING}`}>
-          Sign up
-        </Link>
+        {onSwitchToRegister ? (
+          <button
+            type="button"
+            onClick={onSwitchToRegister}
+            className={`font-semibold text-brand-600 hover:underline ${FOCUS_RING}`}
+          >
+            Sign up
+          </button>
+        ) : (
+          <Link href="/register" className={`font-semibold text-brand-600 hover:underline ${FOCUS_RING}`}>
+            Sign up
+          </Link>
+        )}
       </p>
     </form>
   )
