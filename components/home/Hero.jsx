@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { placeholderCategories } from '../../data/placeholderListings'
 import { buildExploreQueryString, CATEGORY_TYPE_MAP } from '../../lib/listings'
+import SearchAutocomplete from '../search/SearchAutocomplete'
 import HeroIllustration from './HeroIllustration'
 
 const easeOutCubic = [0.16, 1, 0.3, 1]
@@ -249,26 +250,12 @@ export default function Hero() {
             <label htmlFor="hero-search" className="sr-only">
               Search by college, city or locality
             </label>
-            <div className="flex flex-1 items-center gap-2 rounded-xl bg-ink-50 px-4 py-3 focus-within:ring-2 focus-within:ring-brand-500">
-              <svg
-                viewBox="0 0 24 24"
-                className="h-5 w-5 flex-shrink-0 text-ink-500"
-                fill="none"
-                stroke="currentColor"
-                aria-hidden="true"
-              >
-                <circle cx="11" cy="11" r="7" strokeWidth="2" />
-                <path d="M21 21l-4.3-4.3" strokeWidth="2" strokeLinecap="round" />
-              </svg>
-              <input
-                id="hero-search"
-                type="text"
-                value={query}
-                onChange={(event) => setQuery(event.target.value)}
-                placeholder="Search by college, city or locality"
-                className="w-full bg-transparent text-sm text-ink-950 placeholder:text-ink-500 focus:outline-none"
-              />
-            </div>
+            <SearchAutocomplete
+              id="hero-search"
+              value={query}
+              onChange={setQuery}
+              placeholder="Search by college, city or locality"
+            />
             <button
               type="submit"
               className="rounded-xl bg-brand-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-ink-950"

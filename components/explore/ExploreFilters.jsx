@@ -3,9 +3,15 @@
 import { useRouter } from 'next/navigation'
 import { useState, useTransition } from 'react'
 import { buildExploreQueryString, SORT_OPTIONS } from '../../lib/listings'
+import SearchAutocomplete from '../search/SearchAutocomplete'
 
 const FOCUS_RING =
   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2'
+
+// Cuisine pills are display-only for now: there is no `cuisine` filter on
+// the backend or in lib/listings.js yet, so selecting one doesn't change the
+// results — it's here so the UI is ready once that filter exists.
+const CUISINE_OPTIONS = ['North Indian', 'South Indian', 'Chinese', 'Fast Food']
 
 function TypePill({ id, checked, label, onChange }) {
   return (
@@ -36,6 +42,9 @@ export default function ExploreFilters({ typeOptions, amenityOptions, initialFil
   // component with fresh initial state instead of needing an effect to
   // resync it.
   const [filters, setFilters] = useState(initialFilters)
+  // Display-only selection for the cuisine pills (see CUISINE_OPTIONS) — not
+  // part of `filters` since it isn't sent anywhere yet.
+  const [selectedCuisine, setSelectedCuisine] = useState('')
   // No route-level loading.js on /explore (see app/explore/page.jsx for why:
   // it would lock the response status to 200 even on a genuine API
   // failure). Pending feedback for every filter change is handled here
@@ -97,26 +106,12 @@ export default function ExploreFilters({ typeOptions, amenityOptions, initialFil
         <label htmlFor="explore-search" className="sr-only">
           Search by name or location
         </label>
-        <div className="flex flex-1 items-center gap-2 rounded-xl bg-ink-50 px-4 py-3 focus-within:ring-2 focus-within:ring-brand-500">
-          <svg
-            viewBox="0 0 24 24"
-            className="h-5 w-5 flex-shrink-0 text-ink-500"
-            fill="none"
-            stroke="currentColor"
-            aria-hidden="true"
-          >
-            <circle cx="11" cy="11" r="7" strokeWidth="2" />
-            <path d="M21 21l-4.3-4.3" strokeWidth="2" strokeLinecap="round" />
-          </svg>
-          <input
-            id="explore-search"
-            type="text"
-            value={filters.q}
-            onChange={(event) => setFilters({ ...filters, q: event.target.value })}
-            placeholder="Search by name or location"
-            className="w-full bg-transparent text-sm text-ink-950 placeholder:text-ink-500 focus:outline-none"
-          />
-        </div>
+        <SearchAutocomplete
+          id="explore-search"
+          value={filters.q}
+          onChange={(value) => setFilters({ ...filters, q: value })}
+          placeholder="Search by name or location"
+        />
         <button
           type="submit"
           disabled={isPending}
@@ -150,6 +145,31 @@ export default function ExploreFilters({ typeOptions, amenityOptions, initialFil
                 />
               )
             })}
+          </div>
+        </fieldset>
+      )}
+
+      {filters.type === 'cafeteria' && (
+        <fieldset>
+          <legend className="text-xs font-semibold uppercase tracking-wide text-ink-500">
+            Food type
+          </legend>
+          <div className="mt-2 flex flex-wrap gap-2">
+            <TypePill
+              id="explore-cuisine-all"
+              checked={!selectedCuisine}
+              label="All"
+              onChange={() => setSelectedCuisine('')}
+            />
+            {CUISINE_OPTIONS.map((cuisine) => (
+              <TypePill
+                key={cuisine}
+                id={`explore-cuisine-${cuisine.toLowerCase().replace(/\s+/g, '-')}`}
+                checked={selectedCuisine === cuisine}
+                label={cuisine}
+                onChange={() => setSelectedCuisine(cuisine)}
+              />
+            ))}
           </div>
         </fieldset>
       )}

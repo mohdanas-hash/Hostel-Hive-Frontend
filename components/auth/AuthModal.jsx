@@ -26,31 +26,33 @@ export default function AuthModal({ open, onClose, initialTab = 'login', college
         aria-modal="true"
         aria-labelledby={headingId}
         onClick={(event) => event.stopPropagation()}
-        className="animate-dialog-panel relative z-[10000] w-full max-w-md overflow-hidden rounded-2xl bg-white shadow-2xl dark:bg-slate-900"
+        className="animate-dialog-panel relative z-[10000] w-full max-w-md overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl dark:border-slate-800 dark:bg-slate-900"
       >
         <div className="max-h-[85vh] overflow-y-auto p-6 sm:p-8">
           <button
             type="button"
             onClick={onClose}
             aria-label="Close"
-            className="absolute right-4 top-4 rounded-full p-1.5 text-ink-500 hover:bg-ink-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+            className="absolute right-4 top-4 rounded-full p-1.5 text-ink-500 hover:bg-ink-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 dark:text-slate-400 dark:hover:bg-slate-800"
           >
             <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M6 6l12 12M18 6L6 18" strokeLinecap="round" />
             </svg>
           </button>
 
-          <h2 id={headingId} className="text-xl font-bold text-ink-950">
+          <h2 id={headingId} className="text-xl font-bold text-ink-950 dark:text-slate-100">
             {tab === 'login' ? 'Log in to Hostel Hive' : 'Create your account'}
           </h2>
 
-          <div className="mt-5 grid grid-cols-2 gap-1 rounded-xl bg-ink-50 p-1">
+          <div className="mt-5 grid grid-cols-2 gap-1 rounded-xl bg-ink-50 p-1 dark:bg-slate-800">
             <button
               type="button"
               aria-pressed={tab === 'login'}
               onClick={() => setTab('login')}
               className={`rounded-lg py-2 text-sm font-semibold transition-colors ${
-                tab === 'login' ? 'bg-white text-brand-600 shadow-card' : 'text-ink-500'
+                tab === 'login'
+                  ? 'bg-white text-brand-600 shadow-card dark:bg-slate-900 dark:text-brand-400'
+                  : 'text-ink-500 dark:text-slate-400'
               }`}
             >
               Log in
@@ -60,7 +62,9 @@ export default function AuthModal({ open, onClose, initialTab = 'login', college
               aria-pressed={tab === 'register'}
               onClick={() => setTab('register')}
               className={`rounded-lg py-2 text-sm font-semibold transition-colors ${
-                tab === 'register' ? 'bg-white text-brand-600 shadow-card' : 'text-ink-500'
+                tab === 'register'
+                  ? 'bg-white text-brand-600 shadow-card dark:bg-slate-900 dark:text-brand-400'
+                  : 'text-ink-500 dark:text-slate-400'
               }`}
             >
               Sign in

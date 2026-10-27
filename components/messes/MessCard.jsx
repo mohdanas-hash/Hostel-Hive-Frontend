@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { FOOD_TYPE_LABELS } from '../../lib/messes'
 import { getSampleMenu } from '../../data/demoMessMenus'
+import FavoriteButton from '../ui/FavoriteButton'
 
 const MEAL_LABELS = {
   breakfast: 'Breakfast',
@@ -10,6 +11,7 @@ const MEAL_LABELS = {
 
 export default function MessCard({ mess }) {
   const {
+    id,
     name,
     locality,
     priceFrom,
@@ -44,6 +46,10 @@ export default function MessCard({ mess }) {
             {FOOD_TYPE_LABELS[foodType] ?? foodType}
           </span>
         )}
+        <FavoriteButton
+          item={{ id, name, type: 'Mess', location: locality, href: `/listings/${id}` }}
+          className="absolute right-3 top-3"
+        />
       </div>
 
       <div className="p-5">

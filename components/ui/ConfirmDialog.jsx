@@ -90,19 +90,19 @@ export default function ConfirmDialog({
         aria-modal="true"
         aria-labelledby="confirm-dialog-heading"
         aria-describedby={description ? 'confirm-dialog-description' : undefined}
-        className="animate-dialog-panel-centered fixed left-1/2 top-1/2 z-[10000] w-full max-w-sm -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white p-6 shadow-2xl dark:bg-slate-900"
+        className="animate-dialog-panel-centered fixed left-1/2 top-1/2 z-[10000] w-full max-w-sm -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-slate-200 bg-white p-6 shadow-2xl dark:border-slate-800 dark:bg-slate-900"
       >
-        <h2 id="confirm-dialog-heading" className="text-lg font-bold text-ink-950">
+        <h2 id="confirm-dialog-heading" className="text-lg font-bold text-ink-950 dark:text-slate-100">
           {title}
         </h2>
         {description && (
-          <p id="confirm-dialog-description" className="mt-2 text-sm text-ink-500">
+          <p id="confirm-dialog-description" className="mt-2 text-sm text-ink-500 dark:text-slate-400">
             {description}
           </p>
         )}
 
         {error && (
-          <p role="alert" className="mt-3 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">
+          <p role="alert" className="mt-3 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700 dark:bg-red-950/40 dark:text-red-300">
             {error}
           </p>
         )}
@@ -112,7 +112,7 @@ export default function ConfirmDialog({
             type="button"
             onClick={onCancel}
             disabled={pending}
-            className="rounded-xl border border-ink-100 px-5 py-2.5 text-sm font-semibold text-ink-700 transition-colors hover:bg-ink-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 disabled:cursor-not-allowed disabled:opacity-60"
+            className="rounded-xl border border-ink-100 px-5 py-2.5 text-sm font-semibold text-ink-700 transition-colors hover:bg-ink-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 disabled:cursor-not-allowed disabled:opacity-60 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800"
           >
             {cancelLabel}
           </button>

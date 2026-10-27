@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { PRICE_UNIT_SUFFIX } from '../../lib/listings'
+import FavoriteButton from './FavoriteButton'
 import ListingLinkHint from './ListingLinkHint'
 
 export default function ListingCard({ listing }) {
@@ -38,6 +39,10 @@ export default function ListingCard({ listing }) {
         <span className="absolute left-3 top-3 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-brand-600">
           {type}
         </span>
+        <FavoriteButton
+          item={{ id, name, type, location: locality, href: `/listings/${id}` }}
+          className="absolute right-3 top-3"
+        />
       </div>
 
       <div className="p-5">

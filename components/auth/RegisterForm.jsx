@@ -14,7 +14,7 @@ function Field({ id, name, label, type = 'text', autoComplete, fieldErrors }) {
 
   return (
     <div>
-      <label htmlFor={id} className="text-xs font-semibold uppercase tracking-wide text-ink-500">
+      <label htmlFor={id} className="text-xs font-semibold uppercase tracking-wide text-ink-500 dark:text-slate-400">
         {label}
       </label>
       <input
@@ -25,10 +25,10 @@ function Field({ id, name, label, type = 'text', autoComplete, fieldErrors }) {
         required
         aria-invalid={Boolean(error)}
         aria-describedby={error ? `${id}-error` : undefined}
-        className={`mt-1 block w-full rounded-lg border border-ink-100 px-3 py-2 text-sm text-ink-950 ${FOCUS_RING}`}
+        className={`mt-1 block w-full rounded-lg border border-ink-100 bg-white px-3 py-2 text-sm text-ink-950 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:placeholder:text-slate-500 ${FOCUS_RING}`}
       />
       {error && (
-        <p id={`${id}-error`} className="mt-1 text-xs text-red-600">
+        <p id={`${id}-error`} className="mt-1 text-xs text-red-600 dark:text-red-400">
           {error}
         </p>
       )}
@@ -42,7 +42,7 @@ export default function RegisterForm({ colleges = [], onSwitchToLogin }) {
   return (
     <form action={formAction} noValidate className="mt-6 space-y-4">
       {state.message && (
-        <p role="alert" className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">
+        <p role="alert" className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700 dark:bg-red-950/40 dark:text-red-300">
           {state.message}
         </p>
       )}
@@ -77,7 +77,7 @@ export default function RegisterForm({ colleges = [], onSwitchToLogin }) {
         <div>
           <label
             htmlFor="register-college"
-            className="text-xs font-semibold uppercase tracking-wide text-ink-500"
+            className="text-xs font-semibold uppercase tracking-wide text-ink-500 dark:text-slate-400"
           >
             College (optional)
           </label>
@@ -85,7 +85,7 @@ export default function RegisterForm({ colleges = [], onSwitchToLogin }) {
             id="register-college"
             name="collegeId"
             defaultValue=""
-            className={`mt-1 block w-full rounded-lg border border-ink-100 px-3 py-2 text-sm text-ink-950 ${FOCUS_RING}`}
+            className={`mt-1 block w-full rounded-lg border border-ink-100 bg-white px-3 py-2 text-sm text-ink-950 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 ${FOCUS_RING}`}
           >
             <option value="">Select your college</option>
             {colleges.map((college) => (
@@ -105,18 +105,18 @@ export default function RegisterForm({ colleges = [], onSwitchToLogin }) {
         {pending ? 'Creating account…' : 'Create account'}
       </button>
 
-      <p className="text-center text-sm text-ink-500">
+      <p className="text-center text-sm text-ink-500 dark:text-slate-400">
         Already have an account?{' '}
         {onSwitchToLogin ? (
           <button
             type="button"
             onClick={onSwitchToLogin}
-            className={`font-semibold text-brand-600 hover:underline ${FOCUS_RING}`}
+            className={`font-semibold text-brand-600 hover:underline dark:text-brand-400 ${FOCUS_RING}`}
           >
             Log in
           </button>
         ) : (
-          <Link href="/login" className={`font-semibold text-brand-600 hover:underline ${FOCUS_RING}`}>
+          <Link href="/login" className={`font-semibold text-brand-600 hover:underline dark:text-brand-400 ${FOCUS_RING}`}>
             Log in
           </Link>
         )}

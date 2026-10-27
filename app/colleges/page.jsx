@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import CollegeCard from '../../components/colleges/CollegeCard'
+import CollegeSearchBar from '../../components/colleges/CollegeSearchBar'
 import { fetchColleges } from '../../lib/api'
 import { filterColleges } from '../../lib/colleges'
 
@@ -32,38 +33,7 @@ export default async function CollegesPage({ searchParams }) {
         </p>
       </div>
 
-      <form method="get" className="mt-6 flex max-w-md items-center gap-2">
-        {selectedCity && <input type="hidden" name="city" value={selectedCity} />}
-        <label htmlFor="college-search" className="sr-only">
-          Search colleges by name
-        </label>
-        <div className="flex flex-1 items-center gap-2 rounded-xl border border-ink-100 bg-white px-4 py-2.5 shadow-card focus-within:ring-2 focus-within:ring-brand-500">
-          <svg
-            viewBox="0 0 24 24"
-            className="h-4 w-4 flex-shrink-0 text-ink-500"
-            fill="none"
-            stroke="currentColor"
-            aria-hidden="true"
-          >
-            <circle cx="11" cy="11" r="7" strokeWidth="2" />
-            <path d="M21 21l-4.3-4.3" strokeWidth="2" strokeLinecap="round" />
-          </svg>
-          <input
-            id="college-search"
-            type="text"
-            name="q"
-            defaultValue={query}
-            placeholder="Search colleges by name"
-            className="w-full bg-transparent text-sm text-ink-950 placeholder:text-ink-500 focus:outline-none"
-          />
-        </div>
-        <button
-          type="submit"
-          className={`rounded-xl bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand-500 ${FOCUS_RING}`}
-        >
-          Search
-        </button>
-      </form>
+      <CollegeSearchBar selectedCity={selectedCity} initialQuery={query} />
 
       {/* Only worth showing once there's an actual choice to make. */}
       {cities.length > 1 && (

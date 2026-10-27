@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation'
 import { useState, useTransition } from 'react'
 import { FOOD_TYPE_LABELS, MESS_SORT_OPTIONS, buildMessQueryString } from '../../lib/messes'
+import SearchAutocomplete from '../search/SearchAutocomplete'
 
 const FOCUS_RING =
   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2'
@@ -82,26 +83,12 @@ export default function MessFilters({ foodTypeOptions, initialFilters }) {
         <label htmlFor="mess-search" className="sr-only">
           Search by provider name or locality
         </label>
-        <div className="flex flex-1 items-center gap-2 rounded-xl bg-ink-50 px-4 py-3 focus-within:ring-2 focus-within:ring-brand-500">
-          <svg
-            viewBox="0 0 24 24"
-            className="h-5 w-5 flex-shrink-0 text-ink-500"
-            fill="none"
-            stroke="currentColor"
-            aria-hidden="true"
-          >
-            <circle cx="11" cy="11" r="7" strokeWidth="2" />
-            <path d="M21 21l-4.3-4.3" strokeWidth="2" strokeLinecap="round" />
-          </svg>
-          <input
-            id="mess-search"
-            type="text"
-            value={filters.q}
-            onChange={(event) => setFilters({ ...filters, q: event.target.value })}
-            placeholder="Search by provider name or locality"
-            className="w-full bg-transparent text-sm text-ink-950 placeholder:text-ink-500 focus:outline-none"
-          />
-        </div>
+        <SearchAutocomplete
+          id="mess-search"
+          value={filters.q}
+          onChange={(value) => setFilters({ ...filters, q: value })}
+          placeholder="Search by provider name or locality"
+        />
         <button
           type="submit"
           disabled={isPending}

@@ -67,7 +67,14 @@ function LogoutControl({ user, logoutAction, variant = 'desktop' }) {
 
   return (
     <>
-      <span className="text-sm font-medium text-ink-300">Hi, {user.name.split(' ')[0]}</span>
+      <Link
+        href="/profile"
+        className={`text-sm font-medium text-ink-300 hover:text-white rounded ${FOCUS_RING} ${
+          variant === 'mobile' ? 'block' : ''
+        }`}
+      >
+        Hi, {user.name.split(' ')[0]}
+      </Link>
       <form ref={formRef} action={logoutAction} className={variant === 'mobile' ? 'w-full' : undefined}>
         <button type="button" onClick={() => setConfirmOpen(true)} className={triggerClasses}>
           Log out
