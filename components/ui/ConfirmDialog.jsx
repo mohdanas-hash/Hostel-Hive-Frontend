@@ -1,6 +1,7 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 
 const FOCUSABLE_SELECTOR =
   'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
@@ -23,6 +24,11 @@ export default function ConfirmDialog({
   const dialogRef = useRef(null)
   const confirmButtonRef = useRef(null)
   const triggerRef = useRef(null)
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   useEffect(() => {
     if (!open) return undefined
@@ -65,10 +71,10 @@ export default function ConfirmDialog({
     }
   }, [open, onCancel, pending])
 
-  if (!open) return null
+  if (!open || !mounted) return null
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-ink-950/60 px-4 py-8 animate-dialog-backdrop">
+  return createPortal(
+    <div className="fixed inset-0 z-[9999] bg-black/70 backdrop-blur-sm animate-dialog-backdrop">
       <button
         type="button"
         aria-label="Close dialog"
@@ -84,7 +90,7 @@ export default function ConfirmDialog({
         aria-modal="true"
         aria-labelledby="confirm-dialog-heading"
         aria-describedby={description ? 'confirm-dialog-description' : undefined}
-        className="animate-dialog-panel relative z-10 w-full max-w-sm rounded-2xl bg-white p-6 shadow-float"
+        className="animate-dialog-panel-centered fixed left-1/2 top-1/2 z-[10000] w-full max-w-sm -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white p-6 shadow-2xl dark:bg-slate-900"
       >
         <h2 id="confirm-dialog-heading" className="text-lg font-bold text-ink-950">
           {title}
@@ -121,6 +127,7 @@ export default function ConfirmDialog({
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   )
 }

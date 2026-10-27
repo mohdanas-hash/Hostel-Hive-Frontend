@@ -178,6 +178,22 @@ body {
   }
 }
 
+/* Same enter animation, but for a panel centered with the fixed +
+   top/left-1/2 + -translate-x/y-1/2 "bulletproof" method — the keyframe's
+   `transform` must include that -50%/-50% offset at both ends, otherwise it
+   would overwrite the centering transform and the panel would jump to the
+   top-left corner the instant the animation starts. */
+@keyframes dialog-panel-centered-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) translateY(0) scale(1);
+  }
+}
+
 .animate-dialog-backdrop {
   animation: dialog-backdrop-in 0.2s ease-out both;
 }
@@ -186,9 +202,14 @@ body {
   animation: dialog-panel-in 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
+.animate-dialog-panel-centered {
+  animation: dialog-panel-centered-in 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-dialog-backdrop,
-  .animate-dialog-panel {
+  .animate-dialog-panel,
+  .animate-dialog-panel-centered {
     animation: none;
   }
 }
